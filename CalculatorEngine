@@ -1,0 +1,78 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+
+public class CalculatorEngine implements ActionListener {
+  Calculator parent;	
+	char selectedAction = ' ';
+	double currentResult;
+	CalculatorEngine(Calculator parent) {
+		this.parent=parent;
+		}
+	public void actionPerformed(ActionEvent evt) {
+		//Получаем источник действия
+		JButton clickedButton = (JButton) evt.getSource();
+		//Получаем текущий текст из поля вывода 
+		String dispFieldText = parent.displayField.getText();
+		double displayValue = 0;
+		
+		//Получить число из дисплея калькулятора,
+		//если он не пуст.
+		//Восклицательный знак - это оператор отрицания
+		
+		if (!"".equals(dispFieldText)){
+			displayValue=Double.parseDouble(dispFieldText);
+		}
+		Object src = evt.getSource();
+		
+		//для каждой кнопки арифметического действия
+		//запомнить его: +,-,/, или *, сохранить текущее число
+		//в переменной currentResult, и очистить дисплей
+		//для ввода нового числа
+		
+		if (src == parent.buttonPlus){
+			selectedAction = '+';
+			currentResult=displayValue;
+			parent.displayField.setText("");
+		}else if (src == parent.buttonMinus) {
+			selectedAction = '-';
+			currentResult=displayValue;
+			parent.displayField.setText("");
+		}else if (src == parent.buttonDevide){
+			selectedAction = '/';
+			currentResult=displayValue;
+			parent.displayField.setText("");
+		}else if (src == parent.buttonProizv){
+		    selectedAction = '*';
+		    currentResult=displayValue;
+		    parent.displayField.setText("");
+	    } else if (src == parent.buttonEqual) {
+	    	
+	    	//Совершить арифметическое действие, в зависимости 
+	    	//от selectedAction, обновить переменную сcurentResult
+	    	//и показать результат на дисплее
+	    	if (selectedAction=='+'){
+	    		currentResult+=displayValue;
+	    		//сконвертить результат в строку, добавляя его
+	    		//к пустой строке и показать его
+	    		parent.displayField.setText(""+currentResult);
+	    	} else if (selectedAction=='-'){
+	    		currentResult-=displayValue;
+	    		parent.displayField.setText(""+currentResult);
+	    	} else if (selectedAction=='/'){
+	    		currentResult/=displayValue;
+	    		parent.displayField.setText(""+currentResult);
+	    	} else if (selectedAction=='*'){
+	    		currentResult+=displayValue;
+	    		parent.displayField.setText(""+currentResult);
+	    	} else {
+	    		//Для всех цифровых кнопок присоединить надпись на
+	    		//кнопке к надписи в дисплее
+	    		
+	    		String clickedButtonLabel = clickedButton.getText();
+	    		parent.displayField.setText(dispFieldText+clickedButtonLabel);
+	    	}
+	    }
+	}
+}
+
