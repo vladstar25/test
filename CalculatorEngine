@@ -21,7 +21,11 @@ public class CalculatorEngine implements ActionListener {
 		//Восклицательный знак - это оператор отрицания
 		
 		if (!"".equals(dispFieldText)){
-			displayValue=Double.parseDouble(dispFieldText);
+		   try {
+                          displayValue=Double.parseDouble(dispFieldText);
+                   } catch (Exception e) {
+      			System.out.println ("Ошибка!!!");
+                   }
 		}
 		Object src = evt.getSource();
 		
