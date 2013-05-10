@@ -34,6 +34,10 @@ public class CalculatorEngine implements ActionListener {
 		//в переменной currentResult, и очистить дисплей
 		//для ввода нового числа
 		
+	
+	                String clickedButtonLabel = clickedButton.getText();
+	    		parent.displayField.setText(dispFieldText+clickedButtonLabel);
+		
 		if (src == parent.buttonPlus){
 			selectedAction = '+';
 			currentResult=displayValue;
@@ -69,13 +73,7 @@ public class CalculatorEngine implements ActionListener {
 	    	} else if (selectedAction=='*'){
 	    		currentResult+=displayValue;
 	    		parent.displayField.setText(""+currentResult);
-	    	} else {
-	    		//Для всех цифровых кнопок присоединить надпись на
-	    		//кнопке к надписи в дисплее
-	    		
-	    		String clickedButtonLabel = clickedButton.getText();
-	    		parent.displayField.setText(dispFieldText+clickedButtonLabel);
-	    	}
+	    	} 
 	    }
 	}
 }
