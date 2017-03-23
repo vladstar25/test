@@ -1,37 +1,45 @@
 package;
 
-import flash.events.MouseEvent;
 import openfl.display.Sprite;
 import openfl.Lib;
+import flash.events.MouseEvent;
 
-class Main {
-	static function main() {
-	var k1:Kvadrat = new Kvadrat(50, 50, 300, 300);
-	var k2:Kvadrat = new Kvadrat(50,350,400,650);
-	}
-}
-class Kvadrat {
-	var okno:flash.display.MovieClip;
-	var x1:Int;
-	var y1:Int;
-	var x2:Int;
-	var y2:Int;
-	
-	public function new (arg1:Int, arg2:Int, arg3:Int, arg4:Int){
-	okno = flash.Lib.current;
-	okno.addEventListener(MouseEvent.MOUSE_DOWN,function(e){trace(e);});
-	x1 = arg1;
-	y1 = arg2;
-	x2 = arg3;
-	y2 = arg4;
-	
-	okno.graphics.beginFill(0xFFAA00);
-    okno.graphics.moveTo(x1,y1); // От куда будем рисовать ,  Левый верхний угол
-    okno.graphics.lineTo(x2,y1); // Правый верхний угол
-    okno.graphics.lineTo(x2,y2); // Правый нижний угол
-    okno.graphics.lineTo(x1,y2); // Левый нижний угол
-    okno.graphics.endFill();
+class Main extends Sprite 
+{
+	public static function main() {
+		var N:Int = 10;
+		var i:Int;
+		var kvs:Array<Kvadrat> = new Array();
+		for (i in 0...N){
+			kvs[i] = new Kvadrat(50*i, 150*i, 250*i, 350*i);
+			Lib.current.addChild(kvs[i]);
+		}
 		
 	}
 }
-
+class Kvadrat extends Sprite {
+	public static var counter: Int = 0;
+	var number: Int;
+	var x1:Int;	var y1:Int;
+	var x2:Int;	var y2:Int;
+	
+	public function new (x1:Int, y1:Int, x2:Int, y2:Int){
+		super();
+		Kvadrat.counter++;
+		this.number = Kvadrat.counter;
+		addEventListener(MouseEvent.MOUSE_DOWN, function(e){trace(this.number); e.stopPropagation(); });
+		this.x1 = x1;
+		this.y1 = y1;
+		this.x2 = x2;
+		this.y2 = y2;
+		graphics.lineStyle(3,0x00FF00); // Ширина и цвет линий 
+		// graphics.beginFill(0xFFAA00);  // Залиты кубики
+		graphics.moveTo(x1,y1); // От куда будем рисовать ,  Левый верхний угол
+		graphics.lineTo(x2,y1); // Правый верхний угол
+		graphics.lineTo(x2,y2); // Правый нижний угол
+		graphics.lineTo(x1, y2); // Левый нижний угол
+		graphics.lineTo(x1,y1); 
+		graphics.endFill();	
+		trace("Привет!");
+	}
+}
